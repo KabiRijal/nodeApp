@@ -26,6 +26,7 @@ function Register() {
     if (isError) {
       toast.error(message)
     }
+
     if (isSuccess || user) {
       navigate("/")
     }
@@ -40,23 +41,24 @@ function Register() {
     }))
   }
   const onSubmit = (e) => {
-    e.prevantDefault()
+    e.preventDefault()
 
     if (password !== password2) {
-      toast.error("Password do not match")
+      toast.error("Passwords do not match")
     } else {
       const userData = {
         name,
         email,
         password,
       }
+
       dispatch(register(userData))
     }
   }
 
-  if (isLoading) {
-    return <Spinner />
-  }
+  // if (isLoading) {
+  //   return <Spinner />
+  // }
   return (
     <>
       <section className="heading">
@@ -113,7 +115,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-block" >
+            <button type="submit" className="btn btn-block">
               Submit
             </button>
           </div>

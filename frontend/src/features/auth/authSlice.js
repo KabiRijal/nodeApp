@@ -5,7 +5,7 @@ import authService from "./authService"
 const user = JSON.parse(localStorage.getItem("user"))
 
 const initialState = {
-  user: null,
+  user: user ? user : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -25,7 +25,6 @@ export const register = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString()
-
       return thunkAPI.rejectWithValue(message)
     }
   }
@@ -43,20 +42,21 @@ export const authSlice = createSlice({
     },
   },
   externalReducers: (builder) => {
-    builder.addCase(register.pending, (state) => {
-      state.isLoading = true
-    })
-    .addCase(register.fulfilled, (state, action) => {
-      state.isLoading = false
-      state.isSuccess = true
-      state.user = action.payload
-    })
-    .addCase(register.rejected, (state, action) => {
-      state.isLoading = false
-      state.isError = true
-      state.user = null
-      state.message = action.payload
-    })
+    builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.user = action.payload
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+        state.user = null
+      })
   },
 })
 
