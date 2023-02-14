@@ -56,9 +56,9 @@ function Register() {
     }
   }
 
-  // if (isLoading) {
-  //   return <Spinner />
-  // }
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <>
       <section className="heading">
@@ -115,7 +115,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-block">
+            <button type="submit" className="btn btn-block" >
               Submit
             </button>
           </div>
